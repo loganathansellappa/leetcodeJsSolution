@@ -32,12 +32,12 @@ const findPalindrome = (left, right, string) => {
 var longestPalindrome = function(s) { 
   let largestPalindrome = '';
   for(let i=0; i < s.length; i++) {
-    odd = findPalindrome(i-1,i+1,s)
-    even = findPalindrome(i-1,i,s)
-    currentMax = (odd.length > even.length ? odd : even) 
-    if(currentMax.length > largestPalindrome.length) {
-      largestPalindrome = currentMax 
-    }
+    odd = findPalindrome(i,i,s)
+    even = findPalindrome(i,i+1,s)
+        currentMax = (odd.length > even.length ? odd : even) 
+        if(currentMax.length > largestPalindrome.length) {
+            largestPalindrome = currentMax 
+        }
   }
     return largestPalindrome
 }
