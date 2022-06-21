@@ -54,17 +54,43 @@ Constraints:
 0 <= bricks <= 109
 0 <= ladders <= heights.length
  */
+/**
+ * @param {number[]} heights
+ * @param {number} bricks
+ * @param {number} ladders
+ * @return {number}
+ */
+/**
+ * @param {number[]} heights
+ * @param {number} bricks
+ * @param {number} ladders
+ * @return {number}
+ */
 var furthestBuilding = function(heights, bricks, ladders) {
     let heightDiff = []
     for(let i=0; i < heights.length-1; i++) {
         let h = heights[i] - heights[i+1]
-        if(h >= 0) {continue; }   
-        heightDiff.push(Math.abs(h));
-        if(heightDiff.length > ladders) {
-            let minHeight = Math.min(...heightDiff)
-            bricks -= minHeight;
-        }
-        if(bricks < 0)
-            return i
-    }
+        if(h < 0) {
+          push(heightDiff, Math.abs(h));
+          if(heightDiff.length > ladders) {
+              bricks -= heightDiff.shift();
+          }
+          if(bricks < 0)
+              return i
+          }
+      }
+    return heights.length-1
 };
+
+//
+// Insert in sorted order
+//
+function push(queue, num) {
+  for(let i = 0; i < queue.length; i++) {
+    if(queue[i] > num) {
+      queue.splice(i, 0, num);
+      return;
+    }
+  }
+  queue.push(num);
+}
